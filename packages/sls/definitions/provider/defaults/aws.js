@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 
-// Default config for aws lambda
+// Default config for aws
 module.exports = {
   name: 'aws',
   runtime: 'nodejs12.x',
@@ -15,6 +15,9 @@ module.exports = {
 
   apiGateway: {
     shouldStartNameWithService: true,
+    binaryMediaTypes: [
+      '*/*',
+    ],
   },
 
   environment: {

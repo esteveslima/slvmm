@@ -27,19 +27,22 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
     },
     getImage: {
       handler: './src/controllers/getImage/handler.default',
+      environment: {
+        S3_BUCKET_INSTAGRAO: '${env:S3_BUCKET_INSTAGRAO}',
+      },
       events: [
         {
           http: {
             method: 'GET',
             path: '/getImage/{s3objectkey}',
-            request: { // TEST
-              parameters: {
-                paths: {
-                  s3objectkey: true,
-                },
-              },
-            },
           },
+        },
+      ],
+      iamRoleStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['s3:GetObject'],
+          Resource: '${env:S3_ARN_INSTAGRAO}/*',
         },
       ],
     },
@@ -50,13 +53,6 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
           http: {
             method: 'GET',
             path: '/getMetadata/{s3objectkey}',
-            request: { // TEST
-              parameters: {
-                paths: {
-                  s3objectkey: true,
-                },
-              },
-            },
           },
         },
       ],
@@ -79,8 +75,18 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
         {
           http: {
             method: 'POST',
-            path: '/infoImages/{s3objectkey}',
+            path: '/uploadImage/{s3objectkey}',
           },
+        },
+      ],
+      environment: {
+        S3_BUCKET_INSTAGRAO: '${env:S3_BUCKET_INSTAGRAO}',
+      },
+      iamRoleStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['s3:PutObject'],
+          Resource: '${env:S3_ARN_INSTAGRAO}/*',
         },
       ],
     },
