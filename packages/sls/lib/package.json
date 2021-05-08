@@ -1,0 +1,20 @@
+{
+  "name": "@sls/lib",
+  "version": "1.0.1",
+  "description": "",
+  "main": "lib.js",
+  "sideEffects": [],
+  "dependencies": {
+    "aws-sdk": "^2.892.0",
+    "source-map-support": "^0.5.19"
+  },
+  "scripts": {
+    "test": "echo disabled: jest"
+  },
+  "scriptsDescriptions": {
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm) -> TODO: check the necessity to migrate over to yarn workspaces(or lerna) to manage inter package dependency(like services pakcages dependency on serverless lib package)",
+    "test": "test command"
+  },
+  "author": "",
+  "license": "ISC"
+}

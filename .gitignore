@@ -1,0 +1,20 @@
+# package directories
+**/node_modules
+**/jspm_packages
+
+# Sensitive or local/temporary resources
+**/.*/
+**/.env**
+**/**.log
+
+# Distribution folders
+**/dist
+
+# Draft projects folders
+**/~~*
+
+# Exceptions from ignoring
+!.md
+!.gitkeep
+!**/.vscode/
+!**/.husky/

@@ -1,0 +1,19 @@
+{
+  "version": "independent",
+  "npmClient": "npm",
+  "useWorkspaces": true,
+  "packages": [
+    "./packages/services/*",
+    "./packages/shared/*",
+    "./packages/sls/*"
+  ],
+  "command": {
+    "version": {
+      "ignoreChanges": [
+        "**/tests/**",
+        "**/*.md"
+      ],
+      "message": "chore(release): publish"
+    }
+  }
+}

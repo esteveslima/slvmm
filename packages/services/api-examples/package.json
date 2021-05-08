@@ -1,0 +1,32 @@
+{
+  "name": "@services/api-examples",
+  "version": "1.0.3",
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "@shared/utils": "file:../../shared/utils",
+    "@sls/lib": "file:../../sls/lib",
+    "aws-sdk": "^2.892.0"
+  },
+  "devDependencies": {
+    "@sls/configurations": "file:../../sls/configurations",
+    "@sls/definitions": "file:../../sls/definitions"
+  },
+  "scripts": {
+    "sls:babel": "babel-node --presets=@babel/preset-env . && node --inspect=0.0.0.0:9229 $INIT_CWD/../../../node_modules/.bin/sls offline start",
+    "sls": "serverless",
+    "serverless": "serverless",
+    "offline": "node --inspect=0.0.0.0:9229 $INIT_CWD/../../../node_modules/.bin/sls offline start",
+    "test": "echo disabled: jest"
+  },
+  "scriptsDescriptions": {
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm) -> TODO: check the necessity to migrate over to yarn workspaces(or lerna) to manage inter package dependency(like services pakcages dependency on serverless lib package)",
+    "sls:babel": "TODO: test using babel directly to be able to not use webpack",
+    "sls": "alias for serverless command(further command will be applied. E.g: npm run sls deploy -- --stage local ...)",
+    "serverless": "alias for serverless command(further command will be applied. E.g: npm run serverless deploy -- --stage local ...)",
+    "offline": "alias for sls offline command with debugger(script used to start serverless offline with docker-compatible vscode debugger, referencing local node_modules bin)",
+    "test": "test command"
+  },
+  "author": "",
+  "license": "ISC"
+}

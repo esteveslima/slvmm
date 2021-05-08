@@ -1,0 +1,28 @@
+{
+  "name": "@sls/definitions",
+  "version": "1.0.1",
+  "description": "",
+  "main": "definitions.js",
+  "devDependencies": {
+    "serverless": "^2.38.0",
+    "serverless-iam-roles-per-function": "^3.1.0",
+    "serverless-localstack": "^0.4.31",
+    "serverless-offline": "^6.9.0",
+    "serverless-offline-scheduler": "^0.4.2",
+    "serverless-offline-sns": "^0.68.0",
+    "serverless-offline-sqs": "^4.1.1",
+    "serverless-plugin-scripts": "^1.0.2",
+    "serverless-plugin-typescript": "^1.1.9",
+    "serverless-s3-local": "^0.6.14",
+    "serverless-webpack": "^5.4.2"
+  },
+  "scripts": {
+    "test": "echo \"No need for tests in this package\""
+  },
+  "scriptsDescriptions": {
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm) -> TODO: check the necessity to migrate over to yarn workspaces(or lerna) to manage inter package dependency(like services pakcages dependency on serverless lib package)",
+    "test": "test command"
+  },
+  "author": "",
+  "license": "ISC"
+}

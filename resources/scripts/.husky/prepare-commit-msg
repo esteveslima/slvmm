@@ -1,0 +1,19 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Runs on prepare a commit message(before adding a commit message)
+
+# prompt an easy commit setup
+
+# exec < /dev/tty && npx git-cz --hook || true
+
+printf "\n\n\n";
+exec < /dev/tty
+while true; do
+    read -p "Commit with commitzen? (Y/n) " yn
+    case $yn in
+        [Yy]* ) npx git-cz --hook || true; break;;
+        [Nn]* ) break;;
+        * ) npx git-cz --hook || true; break;;
+    esac
+done

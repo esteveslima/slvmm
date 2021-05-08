@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Runs on pre-commit hook(before commit)
+
+# check code linting and unit tests(lint-staged affects only staged files and packages)
+npm exec --workspaces -- lint-staged --verbose --concurrent 1
+
+# option for lint-staged using lerna...
+# npx lerna exec --concurrency 1 --stream lint-staged --since HEAD --exclude-dependents 

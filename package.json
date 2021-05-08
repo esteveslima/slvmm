@@ -1,0 +1,93 @@
+{
+  "name": "slvmm",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "workspaces": [
+    "./packages/services/*",
+    "./packages/shared/*",
+    "./packages/sls/*"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
+    "commitizen": "^4.2.3",
+    "cz-conventional-changelog": "^3.2.0",
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^10.5.4"
+  },
+  "lint-staged": {
+    "**.{js,ts}": [
+      "npx eslint --max-warnings 0 --fix",
+      "npm run test -- --findRelatedTests --bail"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "DOCKER": {
+      "COMPOSE_PATH": "./docker-compose.yml",
+      "COMPOSE_SERVICE": "serverless-container"
+    }
+  },
+  "scripts": {
+    "prepare": "husky install resources/scripts/.husky",
+    "wsp": "npm run --if-present --workspaces",
+    "services": "npm run -if-present -w @services/api-examples -w @services/event-examples -w @services/storage-examples",
+    "clear": "npx -y rimraf ./**/node_modules/ ./packages/**/.serverless/ ./packages/**/.temp/",
+    "update-dependencies:from": "npx -y npm-check-updates -u --cwd ",
+    "lerna-add": "npm install --package-lock-only --no-package-lock --prefix",
+    "postlerna-add": "npm install",
+    "lerna-modified": "lerna ls -l --since",
+    "lerna-version": "lerna version --conventional-commits --no-commit-hooks --ignore-scripts",
+    "docker": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH}",
+    "docker:up": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH} up --detach",
+    "docker:up:clean": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH} up --detach --build --force-recreate --always-recreate-deps",
+    "docker:down": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH} down",
+    "postdocker:down": "sudo rm -rf .volumes/",
+    "docker:down:clean": "npm run docker:down -- --rmi all --volumes --remove-orphans",
+    "docker:rebuild": "npm run docker:down && npm run docker:up",
+    "docker:sh": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH} exec --privileged ${npm_package_config_DOCKER_COMPOSE_SERVICE} bash",
+    "docker:bash": "docker-compose --file ${npm_package_config_DOCKER_COMPOSE_PATH} exec --privileged ${npm_package_config_DOCKER_COMPOSE_SERVICE} bash",
+    "aws": "aws --endpoint-url http://localstack-container:8000 --region us-east-1"
+  },
+  "scriptsDescriptions": {
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm) -> TODO",
+    "prepare": "required script for husky(saving to resources scripts folder)",
+    "wsp": "alias for npm workspaces command",
+    "services": "script for designated workspaces TODO: way to run with regex @pkg/*",
+    "clear": "script to clear all packages(modules and temp files)",
+    "update-dependencies:from": "[BEWARE OF BREAKING CHANGES]script for bumping all dependencies to the latest versions, requires package path",
+    "lerna-add": "workaround to add a package as dependency(or dev dependency) to another package non manually. This is required to enable changes recognition propagation to leaf packages(usage: 'npm run lerna-add -- <leaf_package_path> <imported_package_path>') ........TODO: check later if npm provide a proper way to add dependencies with workspaces",
+    "postlerna-add": "post script to resolve dependencies and symlink after adding a package to another package",
+    "lerna-version": "use lerna to update packages versions(automatically creates a new commit and pushes it)",
+    "lerna-modified": "use lerna to list packages that have been changed(default to since most-recent tag, also could compare branches)",
+    "docker": "alias for docker-compose command",
+    "docker:up": "start development containers (alias for docker-compose command)",
+    "docker:up:clean": "recreate and start development containers (alias for docker-compose command)",
+    "docker:down": "stop development containers (alias for docker-compose command)",
+    "docker:down:clean": "stop development containers and delete it's data/images (alias for docker-compose command)",
+    "docker:rebuild": "rebuild docker environment",
+    "docker:sh": "start shell in development container (alias for docker-compose command)",
+    "docker:bash": "start shell in development container (alias for docker-compose command)",
+    "aws": "aws cli command for localstack container (alias for aws-cli localstack)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esteveslima/slvmm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/esteveslima/slvmm/issues"
+  },
+  "homepage": "https://github.com/esteveslima/slvmm#readme"
+}
