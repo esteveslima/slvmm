@@ -17,7 +17,7 @@ ErrorResponse.parse = (err) => {
   // ... is possible to test map the error and parse to a proper ErrorResponse object
   const errorObject = errorObjects.INTERNAL_SERVER_ERROR;
   const errorDetail = `${err}`;
-  // TODO: enable customize these errors per function
+
   /* switch (true) {
     case (err.name === ''): {
       errorObject = ...

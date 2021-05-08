@@ -1,7 +1,3 @@
-// Configuration to attach vscode debugger to sls offline server
-// To vscode debugger attach to process running inside container, the node app must be started with --inspect:0.0.0.0:[port]
-// The script "npm run offline:debug" wraps this logic and must be used to enable the debugger to be attached
-
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
@@ -18,20 +14,12 @@
             "smartStep": true,
             "sourceMaps": true,
             "outFiles": [
-                "${workspaceFolder}/.webpack/**/*.js"        // set distribution(webpack bundle) file path
+                "${workspaceFolder}/.webpack/**/*.js"        
             ],
-            "remoteRoot": "/slvmm",            // set project remote root-path
+            "remoteRoot": "/slvmm",            
             "address": "localhost",
-            "port": 4000,                                    // sls offline plugin port
+            "port": 4000,                                   
         }
 
     ]
 }
-
-
-// References:
-// https://github.com/serverless-heaven/serverless-webpack/blob/master/README.md#vscode-debugging
-// https://medium.com/@OneMuppet_/debugging-lambada-functions-locally-in-vscode-with-actual-break-points-deee6235f590
-// https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_remote-debugging
-// https://github.com/dherault/serverless-offline/issues/45
-// https://github.com/serverless-heaven/serverless-webpack/issues/42

@@ -12,7 +12,7 @@
     "test": "echo disabled: jest"
   },
   "scriptsDescriptions": {
-    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm) -> TODO: check the necessity to migrate over to yarn workspaces(or lerna) to manage inter package dependency(like services pakcages dependency on serverless lib package)",
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm)",
     "test": "test command"
   },
   "author": "",

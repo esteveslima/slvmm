@@ -64,7 +64,7 @@ export default (function middleware() {
         return handledError.response;
       }
     },
-    // Register middlewares(TODO: make only these methods public)
+    // Register middlewares
     before(func) { return typeof func === 'function' && queue.before.push(func); },
     after(func) { return typeof func === 'function' && queue.after.push(func); },
     error(func) { return typeof func === 'function' && queue.error.push(func); },

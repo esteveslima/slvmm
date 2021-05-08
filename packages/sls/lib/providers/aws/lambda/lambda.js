@@ -8,7 +8,7 @@ export default (func) => async function lambda() {
   const { IS_OFFLINE } = process.env;
 
   // Register default middlewares
-  middleware.before((args) => { if (!IS_OFFLINE) logger.info(args); }); // TODO: enhance logs to beautify view on cloudwatch
+  middleware.before((args) => { if (!IS_OFFLINE) logger.info(args); });
   middleware.after((args, result) => { if (!IS_OFFLINE) logger.info(result); });
   middleware.error((args, errorObject) => { if (!IS_OFFLINE) logger.error('Custom middleware for errors'); });
 

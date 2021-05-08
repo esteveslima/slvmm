@@ -11,7 +11,6 @@ NO_COLOR="\033[0m"
 
 printf "\n";
 
-# Script escape option
 if [ "$SLS_MODE" = "no-scripts" ]
 then
     printf "${CYAN}Serverless script plugin disabled: "$0"${NO_COLOR}";
@@ -20,7 +19,6 @@ then
     exit 0;
 fi
 
-# Check whether the current environment is the docker container
 if (grep 'docker\|lxc' /proc/1/cgroup -qa) && [ "${PWD##$CONTAINER_DIR}" != "${PWD}" ]
 then 
     printf "${CYAN}Serverless script plugin: Detected docker environment${NO_COLOR}"; 

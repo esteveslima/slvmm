@@ -4,59 +4,25 @@
 version: '3.8'
 services:
     
-    serverless-container:                                             # Setting up Serverless development environment        
+    serverless-container:                                               # Setting up Serverless development environment        
         image: esteveslima/slvmm-image:latest           
         build:
             context: .
             dockerfile: Dockerfile
         volumes:
-            - ./:/slvmm                                  # Using the entire project folder as volume for development
-            - ./resources/config/aws/.aws:/home/node/.aws              # Setting up AWS credentials inside the container(~/.aws)
+            - ./:/slvmm                                                 # Using the entire project folder as volume for development
+            - ./resources/config/aws/.aws:/home/node/.aws               # Setting up AWS credentials inside the container(~/.aws)
         working_dir: /slvmm     
         environment:
-            - NODE_TLS_REJECT_UNAUTHORIZED=0                          # Fixing SSL/TLS errors in local development environment(only to enable sls offline https endpoints)
+            - NODE_TLS_REJECT_UNAUTHORIZED=0                            # Fixing SSL/TLS errors in local development environment(only to enable sls offline https endpoints)
         restart: "no"
-        depends_on:
-            # - mysql-container
-            # - mongo-container
-            - dynamodb-container
-            # - redis-container
-            # - queue-container
-            # - localstack-container
+        depends_on:            
+            - dynamodb-container            
         expose:
             - "4000-4010"
         ports:
-            - "9229:9229"                                              # VSCode debugger port
-            - "4000:4000"                                              # SLS offline debugger            
-
-    # mysql-container:                                                 # Setting up RDS local testing environment with mysql
-    #     image: mysql
-    #     volumes:
-    #        - ./.volumes/.mysql-storage:/var/lib/mysql                                 
-    #     environment:
-    #        - MYSQL_USER=root
-    #        - MYSQL_PASSWORD=password
-    #        - MYSQL_ROOT_PASSWORD=password
-    #        - MYSQL_DATABASE=mysql-db                            
-    #     restart: always
-    #     expose:
-    #        - '3306'             
-    #     # ports:
-    #     #   - '3306:3306'                 
-
-    # mongo-container:                                                  # Setting up MongoDB local testing environment with mongo
-    #    image: mongo
-    #    volumes:
-    #        - ./.volumes/.mongodb-storage:/data/db                                 
-    #    environment:
-    #        - MONGO_INITDB_DATABASE=mongo-db                      
-    #        #- MONGO_INITDB_ROOT_USERNAME=user                                 
-    #        #- MONGO_INITDB_ROOT_PASSWORD=password
-    #    restart: always
-    #    expose:
-    #        - '27017'                         
-    #     # ports:
-    #     #     - '27017:27017'
+            - "9229:9229"                                               # VSCode debugger port
+            - "4000:4000"                                               # SLS offline debugger            
 
     dynamodb-container:                                                 # Setting up DynamoDB local testing environment with dynamoDB local
         image: amazon/dynamodb-local
@@ -69,47 +35,4 @@ services:
         expose:
             - '8000'
         ports:
-            - '8000:8000'                                                # shell available at http://localhost:8000/shell/  
-            
-    # redis-container:                                                  # Setting up ElastiCache local testing environment with redis
-    #     image: redis
-    #     command: ["redis-server", "--appendonly", "yes"]
-    #     volumes:
-    #        - ./.volumes/.redis-storage:/data
-    #     #environment:
-    #     restart: always
-    #     expose:
-    #        - '6379'
-    #     # ports:
-    #     #    - '6379:6379'         
-
-    # queue-container:                                                  # Setting up SQS local testing environment with elasticMQ
-    #     image: softwaremill/elasticmq
-    #     restart: always
-    #     expose:
-    #         - '9324'
-    #     ports:
-    #         - '9324:9324'
-    
-    # localstack-container:                                              # EXPERIMENTAL(limited and with lots of bugs)
-    #     image: localstack/localstack
-    #     privileged: true
-    #     environment:
-    #         - SERVICES=${SERVICES- }
-    #         - DEBUG=${DEBUG- }
-    #         - DATA_DIR=${DATA_DIR- }
-    #         - PORT_WEB_UI=${PORT_WEB_UI- }
-    #         - LAMBDA_EXECUTOR=docker # ${LAMBDA_EXECUTOR- }
-    #         - DOCKER_CMD="docker"
-    #         - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
-    #         - DOCKER_HOST=unix:///var/run/docker.sock
-    #     volumes:
-    #         - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
-    #         - "/var/run/docker.sock:/var/run/docker.sock"               # share host machine docker(?)
-    #     expose:
-    #         - "4566"
-    #     ports:
-    #         - "4566:4566"
-    #         - "4571:4571"
-    #         - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
-            
+            - '8000:8000'                                                # shell available at http://localhost:8000/shell/

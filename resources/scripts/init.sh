@@ -1,1 +1,0 @@
-# TODO: create script to make initial required configuration
