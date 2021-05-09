@@ -6,6 +6,8 @@
   "dependencies": {
     "@sls/lib": "file:../../sls/lib",
     "aws-sdk": "^2.892.0",
+    "dynamoose": "^2.7.3",
+    "image-size": "^1.0.0",
     "lambda-multipart-parser": "^1.0.1"
   },
   "devDependencies": {
@@ -16,6 +18,7 @@
     "sls": "serverless",
     "serverless": "serverless",
     "offline": "node --inspect=0.0.0.0:9229 $INIT_CWD/../../../node_modules/.bin/sls offline start",
+    "aws:ddb": "aws --endpoint-url http://dynamodb-container:8000 --region us-east-1 dynamodb",
     "test": "echo disabled: jest"
   },
   "scriptsDescriptions": {
