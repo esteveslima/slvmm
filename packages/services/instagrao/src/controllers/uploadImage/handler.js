@@ -2,7 +2,7 @@ import {
   lambda, logger, middleware, ErrorResponse, ErrorObjects,
 } from '@sls/lib';
 import multipartParser from 'lambda-multipart-parser';
-import { uploadImage } from '../../common/utils/manageS3Image';
+import { uploadImage } from '../../common/utils/manageS3';
 
 middleware.before((event) => { logger.log('middleware usage example'); });
 
