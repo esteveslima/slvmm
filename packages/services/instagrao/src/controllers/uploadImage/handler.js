@@ -1,13 +1,9 @@
-import {
-  lambda, logger, middleware, ErrorResponse, ErrorObjects,
-} from '@sls/lib';
+import { lambda, ErrorResponse, ErrorObjects } from '@sls/lib';
 import multipartParser from 'lambda-multipart-parser';
 import { uploadImage } from '../../common/utils/manage-s3';
 
-middleware.before((event) => { logger.log('middleware usage example'); });
-
 export default lambda(async (event) => {
-  const { s3objectkey } = event.pathParameters;
+  const s3objectkey = event.pathParameters.s3objectkey.replace('_', '');
 
   const { files } = await multipartParser.parse(event);
   const file = files[0];

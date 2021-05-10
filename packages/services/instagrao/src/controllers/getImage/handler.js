@@ -1,10 +1,8 @@
-import { lambda, logger, middleware } from '@sls/lib';
+import { lambda } from '@sls/lib';
 import { getImage } from '../../common/utils/manage-s3';
 
-middleware.before((event) => { logger.log('middleware usage example'); });
-
 export default lambda(async (event) => {
-  const { s3objectkey } = event.pathParameters;
+  const s3objectkey = event.pathParameters.s3objectkey.replace('_', '');
 
   const getImageRequest = await getImage(s3objectkey);
 
