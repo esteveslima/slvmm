@@ -4,4 +4,8 @@ const { eslintConfig } = require('@sls/configurations');
 // New Properties could be added, overriding the ones from config file
 module.exports = {
   ...eslintConfig,
+  rules: {
+    ...eslintConfig.rules,
+    'newline-per-chained-call': 'off',
+  },
 };

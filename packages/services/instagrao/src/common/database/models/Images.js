@@ -1,6 +1,6 @@
 import * as dynamoose from 'dynamoose';
-import schemaOptions from '../config/schemaOptions';
-import setupDynamoose from '../config/setup-dynamoose';
+import schemaOptions from '../setup/schema-options';
+import setupDynamoose from '../setup/setup-dynamoose';
 
 setupDynamoose(); // setting up dynamoose before entrypoint
 
