@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "2cd3fe8a-19eb-46e4-9fc5-c64bedbfd72d",
+		"name": "slvmm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getImage",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "image/jpeg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://{{HOST}}/{{STAGE}}/getImage/:s3objectkey",
+					"protocol": "https",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"{{STAGE}}",
+						"getImage",
+						":s3objectkey"
+					],
+					"variable": [
+						{
+							"key": "s3objectkey",
+							"value": "image_key"
+						}
+					]
+				},
+				"description": "get Image from s3"
+			},
+			"response": []
+		},
+		{
+			"name": "getMetadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{HOST}}/{{STAGE}}/getMetadata/:s3objectkey",
+					"protocol": "https",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"{{STAGE}}",
+						"getMetadata",
+						":s3objectkey"
+					],
+					"variable": [
+						{
+							"key": "s3objectkey",
+							"value": "image_key"
+						}
+					]
+				},
+				"description": "get medatada from image stored in s3"
+			},
+			"response": []
+		},
+		{
+			"name": "infoImages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{HOST}}/{{STAGE}}/infoImages",
+					"protocol": "https",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"{{STAGE}}",
+						"infoImages"
+					]
+				},
+				"description": "get general metadata info from images stored in s3"
+			},
+			"response": []
+		},
+		{
+			"name": "uploadImage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image-file",
+							"type": "file",
+							"src": "/home/esteveslima/Downloads/abc2.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{HOST}}/{{STAGE}}/uploadImage/:s3objectkey",
+					"protocol": "https",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"{{STAGE}}",
+						"uploadImage",
+						":s3objectkey"
+					],
+					"variable": [
+						{
+							"key": "s3objectkey",
+							"value": "{{$guid}}"
+						}
+					]
+				},
+				"description": "(for testing purposes)upload file to s3"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "localhost:4000"
+		},
+		{
+			"key": "STAGE",
+			"value": "local"
+		}
+	]
+}
