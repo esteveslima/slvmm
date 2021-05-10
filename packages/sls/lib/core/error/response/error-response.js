@@ -3,7 +3,7 @@ import errorObjects from '../error-objects';
 // Class wraping error responses
 class ErrorResponse extends Error {
   constructor(errorObject, errorDetail) {
-    super();
+    super(errorObject.message);
     this.errorObject = errorObject ?? errorObjects.INTERNAL_SERVER_ERROR;
     this.errorDetail = errorDetail ?? 'Error response';
     this.errorLevel = 'error';

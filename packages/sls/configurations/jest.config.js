@@ -8,6 +8,9 @@ module.exports = {
   // coveragePathIgnorePatterns: ['/__mocks__/', '/mock/'],
   // testPathIgnorePatterns: ['/__mocks__/', '/mock/'],
   modulePathIgnorePatterns: ['.mock'],
+  setupFilesAfterEnv: [
+    '<rootDir>/tests/default-setup.js',
+  ],
   transform: {
     '\\.[jt]sx?$': ['babel-jest', { configFile: path.resolve(__dirname, 'babel.config.js') }],
   },
