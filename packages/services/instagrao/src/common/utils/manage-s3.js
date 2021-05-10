@@ -13,7 +13,7 @@ export const getImage = async (key) => {
     const result = await s3.getObject(params).promise();
     return { params, result };
   } catch (err) {
-    if (err.code === 'NoSuchKey') throw new ErrorResponse(serviceErrors.IMAGE_NOT_FOUND);
+    if (err.code === 'NoSuchKey' || err.code === 'AccessDenied') throw new ErrorResponse(serviceErrors.IMAGE_NOT_FOUND);
     throw err;
   }
 };

@@ -9,6 +9,9 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
   return functions({
     extractMetadata: {
       handler: './src/controllers/extractMetadata/handler.default',
+      environment: {
+        S3_BUCKET_INSTAGRAO: '${env:S3_BUCKET_INSTAGRAO}',
+      },
       timeout: 60,
       events: [
         {
@@ -22,6 +25,18 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
               },
             ],
           },
+        },
+      ],
+      iamRoleStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['s3:GetObject'],
+          Resource: '${env:S3_ARN_INSTAGRAO}/*',
+        },
+        {
+          Effect: 'Allow',
+          Action: ['dynamodb:*'],
+          Resource: '${env:DDB_ARN_INSTAGRAO}',
         },
       ],
     },
@@ -56,6 +71,13 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
           },
         },
       ],
+      iamRoleStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['dynamodb:*'],
+          Resource: '${env:DDB_ARN_INSTAGRAO}',
+        },
+      ],
     },
     infoImages: {
       handler: './src/controllers/infoImages/handler.default',
@@ -67,10 +89,20 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
           },
         },
       ],
+      iamRoleStatements: [
+        {
+          Effect: 'Allow',
+          Action: ['dynamodb:*'],
+          Resource: '${env:DDB_ARN_INSTAGRAO}',
+        },
+      ],
     },
     // Function to upload images for testing purposes
     uploadImage: {
       handler: './src/controllers/uploadImage/handler.default',
+      environment: {
+        S3_BUCKET_INSTAGRAO: '${env:S3_BUCKET_INSTAGRAO}',
+      },
       events: [
         {
           http: {
@@ -79,9 +111,6 @@ module.exports = async ({ options, resolveConfigurationProperty }) => {
           },
         },
       ],
-      environment: {
-        S3_BUCKET_INSTAGRAO: '${env:S3_BUCKET_INSTAGRAO}',
-      },
       iamRoleStatements: [
         {
           Effect: 'Allow',

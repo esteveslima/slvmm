@@ -13,16 +13,21 @@ const listTypes = 'list_types';
 export const registerImage = async (s3Key, contentType, size, width, height) => {
   const key = imageKey.replace('{S3_KEY}', s3Key);
 
-  const imageCreated = await Images.create({
-    type_key: key,
-    sk: key,
-    imageData: {
-      contentType,
-      size,
-      width,
-      height,
+  const imageCreated = await Images.create(
+    {
+      type_key: key,
+      sk: key,
+      imageData: {
+        contentType,
+        size,
+        width,
+        height,
+      },
     },
-  });
+    {
+      overwrite: true, // repeated keys may cause problems with registered type sizes, but I won't bother with this for this project
+    },
+  );
 
   return imageCreated;
 };

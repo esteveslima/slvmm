@@ -24,13 +24,13 @@ export default lambda(async (event) => {
   // Set general results
   resultObj.general = {
     info: {
-      types: registeredTypes,
-      count: resultList.reduce((acc, curr) => acc + curr.typeInfo.typeCount, 0),
+      typesList: registeredTypes,
+      typesCount: resultList.reduce((acc, curr) => acc + curr.typeInfo.typeCount, 0),
     },
     // eslint-disable-next-line prefer-spread
-    biggest: Math.max.apply(Math, resultList.map((item) => item.biggest.sk)),
+    biggestSize: Math.max.apply(Math, resultList.map((item) => item.biggest.sk)),
     // eslint-disable-next-line prefer-spread
-    smallest: Math.min.apply(Math, resultList.map((item) => item.smallest.sk)),
+    smallestSize: Math.min.apply(Math, resultList.map((item) => item.smallest.sk)),
   };
 
   return resultObj;
