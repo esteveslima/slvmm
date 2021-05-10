@@ -1,5 +1,5 @@
 import { lambda, logger, middleware } from '@sls/lib';
-import { getImage } from '../../common/utils/manageS3';
+import { getImage } from '../../common/utils/manage-s3';
 
 middleware.before((event) => { logger.log('middleware usage example'); });
 
