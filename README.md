@@ -156,6 +156,6 @@ Além de problemas sobre a solução, a implementação também possui detalhes 
  - Poucas validações de input e exploração dos possíveis erros(geralmente disparado erro padrão)
 
 **Observação**: Arquivo Serverless para infraestrutura criado, porém é interessante criar o bucket no S3 e a tabela no DynamoDB manualmente(referência em `packages/services/instagrao-infra/serverless.js`):
-   - DynamoDB: 'partition key' como 'type_key' e 'sort key' como 'sk', ambos do tipo String. Lembrar de colocar o ARN da tabela criada no arquivo `.env`
+   - DynamoDB: Tabela com nome 'Images', 'partition key' como 'type_key' e 'sort key' como 'sk', ambos do tipo String. Lembrar de colocar o ARN da tabela criada no arquivo `.env`
    - S3: nome do bucket se possível com nome "instagrao-bucket" para manter o que já está configurado, ou modificar o nome/ARN do bucket criado no arquivo `.env`
    - Obs: É interessante criar a infraestrutura manualmente ou no mínimo através de um arquivo separado das functions, dessa forma evitando perda de dados em caso de problema em alguma etapa de atualização da stack na CloudFormation
