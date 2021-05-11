@@ -112,13 +112,15 @@ Para realizar testes locais utilizando plugins do Serverless Framework e DynamoD
 
 Com isso se iniciará um servidor local para testes. [Collection do Postman](resources/postman/slvmm.postman_collection.json) para teste dos serviços disponível.
 
-AWS-CLI para o dynamodb local disponíveis atraveś do comando `npm run aws:ddb <comando> -- --<flag1> --<flag2> ...`
+AWS-CLI para o dynamodb local disponíveis através do comando `npm run aws:ddb <comando> -- --<flag1> --<flag2> ...`
 
 <br/>
 
 Para deploy da solução:
 
-**IMPORTANTE**: criar infraestrutura do projeto antes de fazer o deploy das funções, preferencialmente de forma manual, mas também pssível através do framework pelo arquivo `packages/services/instagrao-infra`
+**IMPORTANTE**: criar infraestrutura do projeto antes de fazer o deploy das funções, preferencialmente de forma manual, mas também possível através do framework pelo arquivo `packages/services/instagrao-infra`
+
+Lembrar de atualizar o arquivo `.env` antes de realizar o reploy do serviço
 
     $ npm run sls deploy -- --stage <stage>
 
@@ -145,6 +147,8 @@ Para fazer o deploy da solução diretamente da máquina seguir os mesmos passos
 O uso dessa solução implica em algumas consequências, que não foram tratadas para o propósito desse projeto:
  - Novas registros de imagens maiores/menores acabam deixando os registros anteriores salvos na tabela, sendo potencialmente necessário uma rotina de limpeza 
  - Pode ser potencialmente possível que o contador atômico utilizado para contar o numero de imagens tenha alguma falha em 'race conditions', mas o escopo do projeto deve suportar uma margem de erro
+ - Upload de imagens com a mesma chave contabilizam como um novo registro na tabela, seria interessante uma verificação para apagar os registros repetidos.
+ - É possível fazer upload/download de qualquer tipo de arquivo, porém somente imagens são contabilizadas
   
 
 Além de problemas sobre a solução, a implementação também possui detalhes que não foram profundamente desenvolvidos para o escopo desse projeto:
