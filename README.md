@@ -76,6 +76,8 @@ Foram criadas 5 funções Lambda com Api Gateway para acesso via http:
 
 ## Testando a solução
 
+O desenvolvimento foi realizado em ambiente linux, podendo haver conflitos em outros sistemas operacionais
+
 <br/>
 
 ### Passos iniciais
@@ -112,19 +114,26 @@ Com isso se iniciará um servidor local para testes. [Collection do Postman](res
 
 AWS-CLI para o dynamodb local disponíveis atraveś do comando `npm run aws:ddb <comando> -- --<flag1> --<flag2> ...`
 
+<br/>
+
 Para deploy da solução:
+
+**IMPORTANTE**: criar infraestrutura do projeto antes de fazer o deploy das funções, preferencialmente de forma manual, mas também pssível através do framework pelo arquivo `packages/services/instagrao-infra`
 
     $ npm run sls deploy -- --stage <stage>
 
+
 Obs: 
  - 1. utilizando serverless local do projeto
- - 2. em caso de erro de dependências com o npm, rode o comando `npm install` novamente dentro da pasta do serviço `.../services/instagrao`
+ - 2. em caso de erro de dependências com o npm, rode o comando `npm install` novamente também dentro da pasta do serviço
 
 <br/>
 
 ### Sem docker
 
-Testes locais não estão configurados para funcionar fora do ambiente do container de desenvolvimento. Para fazer o deploy da solução diretamente da máquina seguir os mesmos passos anteriores, se atentando à configuração das credenciais da AWS.
+Testes locais não estão configurados para funcionar fora do ambiente do container de desenvolvimento. 
+
+Para fazer o deploy da solução diretamente da máquina seguir os mesmos passos anteriores, se atentando à configuração das credenciais da AWS com o perfil correto.
 
 
 <br/><br/><br/>
@@ -135,13 +144,14 @@ Testes locais não estão configurados para funcionar fora do ambiente do contai
 
 O uso dessa solução implica em algumas consequências, que não foram tratadas para o propósito desse projeto:
  - Novas registros de imagens maiores/menores acabam deixando os registros anteriores salvos na tabela, sendo potencialmente necessário uma rotina de limpeza 
- - É potencialmente possível que o contador atômico utilizado para contar o numero de imagens tenha alguma falha em 'race conditions', mas o escopo do projeto deve suportar uma margem de erro
+ - Pode ser potencialmente possível que o contador atômico utilizado para contar o numero de imagens tenha alguma falha em 'race conditions', mas o escopo do projeto deve suportar uma margem de erro
   
 
 Além de problemas sobre a solução, a implementação também possui detalhes que não foram profundamente desenvolvidos para o escopo desse projeto:
  - Testes unitários não foram amplamente desenvolvidos(apesar da estrutura para criação dos testes ter sido ajustada e um arquivo de exemplo(function getImage) ter sido criado)
  - Poucas validações de input e exploração dos possíveis erros(geralmente disparado erro padrão)
- - Arquivo Serverless para infraestrutura não criado, sendo necessário criar o bucket no S3 e a tabela no DynamoDB manualmente:
+
+**Observação**: Arquivo Serverless para infraestrutura criado, porém é interessante criar o bucket no S3 e a tabela no DynamoDB manualmente(referência em `packages/services/instagrao-infra/serverless.js`):
    - DynamoDB: 'partition key' como 'type_key' e 'sort key' como 'sk', ambos do tipo String. Lembrar de colocar o ARN da tabela criada no arquivo `.env`
    - S3: nome do bucket se possível com nome "instagrao-bucket" para manter o que já está configurado, ou modificar o nome/ARN do bucket criado no arquivo `.env`
    - Obs: É interessante criar a infraestrutura manualmente ou no mínimo através de um arquivo separado das functions, dessa forma evitando perda de dados em caso de problema em alguma etapa de atualização da stack na CloudFormation

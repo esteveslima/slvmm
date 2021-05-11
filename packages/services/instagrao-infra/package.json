@@ -1,0 +1,24 @@
+{
+  "name": "@services/instagrao-infra",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+
+  "devDependencies": {
+    "@sls/configurations": "file:../../sls/configurations",
+    "@sls/definitions": "file:../../sls/definitions"
+  },
+  "scripts": {
+    "sls": "serverless",
+    "serverless": "serverless",
+    "test": "echo \"no test needed\""
+  },
+  "scriptsDescriptions": {
+    "EXPLANATION": "dummy object only used to comment built scripts(will be ignored by npm)",
+    "sls": "alias for serverless command(further command will be applied. E.g: npm run sls deploy -- --stage local ...)",
+    "serverless": "alias for serverless command(further command will be applied. E.g: npm run serverless deploy -- --stage local ...)",
+    "test": "test command"
+  },
+  "author": "",
+  "license": "ISC"
+}
