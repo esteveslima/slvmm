@@ -9,7 +9,7 @@ module.exports = {
 
   frameworkVersion: '^2',
   useDotenv: true,
-  variablesResolutionMode: 20210219, // DEPRECATION_RESOLUTION - new variables resolutions upcoming in v3
+  variablesResolutionMode: 20210219,
   configValidationMode: 'warn',
 
   // Default configurations can be customized and overrided
